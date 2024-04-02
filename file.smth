@@ -1,0 +1,57 @@
+//Everything is a field (every function returns a value) 
+...Some comments deserve to cover 
+multiple lines, like this. 
+Others only need one line. ...
+
+//I intend to have no inheritence support, except implementing interfaces. No parent/child objects; if you want to use an object as a field in another, do so. 
+//Could use "please" and "thanks" for async/await. On please, continue doing other things while we wait for the response on the thread's time, on receipt use thanks to return a result. 
+//declarations can occur anywhere in the file, but re-valuing can only occur inside a function. 
+
+there set number: 2.5;//numbers are easily parsed; it cannot start with a decimal, and it cannot contain a comma. 
+
+here free someStr: "Hello World";//This is natural declaring; Strings are surrounded by double quotes.
+
+here set someChar: 'a';//Chars are declared like strings, but with a single quote. 
+
+here set someCharPtr: `someChar`;//I may implement pointers using backticks. Might use @ on any variable instead. 
+
+here set rect;//This is also declaring, even though we do not assign a value here. It has no value and is only a pointer. 
+here set rect2[128];//I may implement an ability to allocate memory to a variable, idk. I think I want memory allocated to be manual. People should know their overhead. 
+here set size: rect2.allocated;//This would then, if I do this, allow us to see how much memory was allocated to the variable; how much space is being pointed at?
+
+...There are no functions, only fields; fields may take in parameters, or not; they will always represent a value.
+If free, can be overridden to provide alternative functionality. (mutable)
+If set, can only be called. (immutable) ...
+
+...Frames are different from fields because we are instantiating nothing; nothing is being stored to memory as any usable variable, but 
+rather just a frame of what will be created upon instantiation. Internal fields will be accessible only within the scope of a declared 
+instance of a frame. Frames should be written in PascalCase, where fields should be written in camelCase...
+there free Shape {//If free, can create instances with altered parameters, like implementing in a way. Otherwise if set, cannot implement. 
+	vertices => [Point],...This is not declaring or revaluing, it is defining. Defining is setting the type but 
+	not creating the variable. The variable is only created when a frame is declared...
+	filled => binary//true or false, also 1 or 0. A binary is any 1-bit value. 
+	
+	there set addPoint(Point pt) {
+		vertices.expand(1);
+		vertices.append(pt);//append and prepend are built-in functions for the Array type.
+	}
+}
+
+there Point {
+	coord => (num, num)//tuple of numbers
+}
+
+there set saySmthHalfTheTime(string str, num n): {
+	if n < 2 {
+		nok("Unexpected number encountered!", 1)//nok prints error report if second param = 1/true; error message is first param. 
+	}
+	for * : n {
+		if !(n % 2) {
+			out(System, str);
+		}
+	}
+	if 4 != 2 {
+		out(System, "Yeah we all knew that one");
+	}
+	ok()//If you pass nothing, ok() returns 1(true). If you pass a var, the function returns that var's value. Pass a value... well, it returns the value.
+}
