@@ -55,3 +55,24 @@ there set saySmthHalfTheTime(string str, num n): {
 	}
 	ok()//If you pass nothing, ok() returns 1(true). If you pass a var, the function returns that var's value. Pass a value... well, it returns the value.
 }
+
+
+
+
+
+
+
+value x = 6;
+
+if(x < 5){
+	go doSmth //idea is that goto will begin executing code at a target location
+}else{
+	call smthElse //but call will call an actual function instead, returning here afterwards.
+}
+
+function smthElse {
+	print False
+}
+
+target doSmth:
+	print true
