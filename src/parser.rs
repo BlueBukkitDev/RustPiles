@@ -1,53 +1,53 @@
+
 struct Word {
     content:String,
     kind:WordType
 }
 
-impl Word{
-    pub fn new(&self, text:&str) -> Word {
+impl Word {
+    pub fn new(&self, text: &str) -> Word {
         Word {
             content: String::from(&text),
-            kind: getKind()
+            kind: Word::getKind(text)
         }
     }
-    ///Need to add functionality to this.
-    fn get_words(line:String) -> Vec<Word> {
+    ///Gets a Vec of Words from a line of text.
+    pub fn get_words(line: String) -> Vec<Word> {
         let chars = line.chars().collect();
-        let words = Vec::new();
-        let builder = "";
-        let whitespace = false;
+        let mut words = Vec::new();
+        let mut builder = "";
+        let mut whitespace = false;
+        let mut i = 0;
 
         while i < chars.len() {
             if chars[i] == " " {
                 whitespace = true;
-            }else{
+            } else {
                 whitespace = false;
-                builder = builder+chars[i];
+                builder = builder + chars[i];
             }
-            if get_kind(builder) == WordType::Symbol {
-                if get_kind(builder+chars[i+1]) == WordType::Symbol {
+            if Word::get_kind(builder) == WordType::Symbol {
+                if Word::get_kind(builder + chars[i + 1]) == WordType::Symbol {
                     words.add(builder);
                     builder = "";
-                    i+=2;
+                    i += 2;
                     continue;
                 }
                 words.add(builder);
-                i+=1;
+                i += 1;
                 continue;
-            }else if get_kind(builder) == WordType::Keyword {
-
-            }
-            i+=1;
+            } else if Word::get_kind(builder) == WordType::Keyword {}
+            i += 1;
         }
     }
-}
 
-pub fn get_kind(text:&str) -> WordType {
-    match &str {
-        "value" | "function" | "target" | "if" | "else" | "for" | "while" | "print" | "call" | "go" => WordType::Keyword,
-        "("|")"|"["|"]"|"{"|"}"|"<="|">="|"!="|"=="|"<"|">"|"=" | "" => WordType::Symbol,
+    pub fn get_kind(text:&str) -> WordType {
+        match text {
+            "value" | "function" | "target" | "if" | "else" | "for" | "while" | "print" | "call" | "go" => WordType::Keyword,
+            "("|")"|"["|"]"|"{"|"}"|"<="|">="|"!="|"=="|"<"|">"|"=" | "" => WordType::Symbol,
+            _ => WordType::UserDefined
+        }
     }
-    WordType::UserDefined
 }
 
 enum WordType{
